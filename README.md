@@ -28,6 +28,6 @@ See [pre-commit](https://github.com/pre-commit/pre-commit) for more instructions
 
 ### Licenses
 
-The license of this tool is MIT License.  See the `./licenses` directory.
+The license of this tool is MIT License.  See the file `LICENSE`
 
-A significant portion of the code used in this tool comes from https://github.com/pre-commit/pre-commit-hooks, in particular, the file [`string_fixer.py`](https://github.com/pre-commit/pre-commit-hooks/blob/6b03546fc3082141db46b5146a1f1c4fc011f96f/pre_commit_hooks/string_fixer.py).  As such, we added pre-commit-hooks' license as the original license (also in the `./licenses` directory).
+A significant portion of the code used in this tool comes from https://github.com/pre-commit/pre-commit-hooks, in particular, the file [`string_fixer.py`](https://github.com/pre-commit/pre-commit-hooks/blob/6b03546fc3082141db46b5146a1f1c4fc011f96f/pre_commit_hooks/string_fixer.py).  As such, we added pre-commit-hooks' license as the original license (see the file `ORIGINAL_LICENSE`).
