@@ -61,7 +61,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     for filename in args.filenames:
         return_value = fix_double_quotes(filename)
         if return_value != 0:
-            print(f'Fixing strings in {filename}')
+            print(f'Double quotes -> single quotes in: {filename}')
         retv |= return_value
 
     return retv
