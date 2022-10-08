@@ -1,0 +1,6 @@
+-   id: jupyter-nb-double-quote-to-single-quote
+    name: Jupyter notebook double quote fixer
+    description: Convert double quotes to single quotes in Jupyter notebook code cells
+    entry: jupyter-nb-double-quote-to-single-quote
+    language: python
+    files: (^|/).*\.ipynb$
