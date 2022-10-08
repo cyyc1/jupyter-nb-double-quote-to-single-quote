@@ -32,10 +32,12 @@ def fix_double_quotes(filename: str) -> int:
 
             if fixed_source != this_source:
                 fixed_source_lines = fixed_source.split('\n')
+                # fmt: off
                 fixed_source_lines_ = (
-                    [_ + '\n' for _ in fixed_source_lines[:-1]] +
-                    [fixed_source_lines[-1]]
+                    [_ + '\n' for _ in fixed_source_lines[:-1]]
+                    + [fixed_source_lines[-1]]
                 )
+                # fmt: on
                 notebook_content['cells'][this_index]['source'] = fixed_source_lines_
                 return_value = 1
 

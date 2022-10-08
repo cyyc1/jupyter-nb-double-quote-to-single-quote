@@ -11,7 +11,7 @@ def handle_match(token_text: str) -> str:
 
     match = START_QUOTE_RE.match(token_text)
     if match is not None:
-        meat = token_text[match.end():-1]
+        meat = token_text[match.end() : -1]
         if '"' in meat or "'" in meat:
             return token_text
         else:
@@ -41,8 +41,7 @@ def fix_double_quotes_in_file_contents(contents: str) -> str:
         if token_type == tokenize.STRING:
             new_text = handle_match(token_text)
             splitcontents[
-                line_offsets[srow] + scol:
-                line_offsets[erow] + ecol
+                line_offsets[srow] + scol : line_offsets[erow] + ecol
             ] = new_text
 
     new_contents = ''.join(splitcontents)
