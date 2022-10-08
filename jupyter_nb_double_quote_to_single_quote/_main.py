@@ -4,7 +4,7 @@ import argparse
 import json
 from typing import Sequence
 
-from jupyter_notebook_parser import JupyterNotebookParser
+from jupyter_notebook_parser import JupyterNotebookParser, JupyterNotebookRewriter
 
 from jupyter_nb_double_quote_to_single_quote._helper import (
     fix_double_quotes_in_file_contents,
@@ -13,32 +13,30 @@ from jupyter_nb_double_quote_to_single_quote._helper import (
 
 def fix_double_quotes(filename: str) -> int:
     try:
-        parser = JupyterNotebookParser(filename)
+        parsed = JupyterNotebookParser(filename)
     except Exception as exc:
         print(f'{filename}: Failed to load ({exc})')
         return 1
     else:
         return_value = 0
-        notebook_content = parser.notebook_content
-        code_cell_indices = parser.get_code_cell_indices()
-        code_cell_sources = parser.get_code_cell_sources()
+
+        rewriter = JupyterNotebookRewriter(parsed_notebook=parsed)
+        notebook_content = parsed.notebook_content
+        code_cell_indices = parsed.get_code_cell_indices()
+        code_cell_sources = parsed.get_code_cell_sources()
 
         assert len(code_cell_indices) == len(code_cell_sources)
 
         for i in range(len(code_cell_indices)):
-            this_source = code_cell_sources[i]
-            this_index = code_cell_indices[i]
-            fixed_source = fix_double_quotes_in_file_contents(this_source)
+            this_source: str = code_cell_sources[i]
+            this_index: int = code_cell_indices[i]
+            fixed_source: str = fix_double_quotes_in_file_contents(this_source)
 
             if fixed_source != this_source:
-                fixed_source_lines = fixed_source.split('\n')
-                # fmt: off
-                fixed_source_lines_ = (
-                    [_ + '\n' for _ in fixed_source_lines[:-1]]
-                    + [fixed_source_lines[-1]]
+                rewriter.replace_source_in_code_cell(
+                    index=this_index,
+                    new_source=fixed_source,
                 )
-                # fmt: on
-                notebook_content['cells'][this_index]['source'] = fixed_source_lines_
                 return_value = 1
 
         if return_value == 1:
