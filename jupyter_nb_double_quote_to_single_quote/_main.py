@@ -23,7 +23,9 @@ def fix_double_quotes(filename: str) -> int:
         rewriter = JupyterNotebookRewriter(parsed_notebook=parsed)
         notebook_content = parsed.notebook_content
         code_cell_indices = parsed.get_code_cell_indices()
-        code_cell_sources = parsed.get_code_cell_sources()
+        code_cell_sources = [  # could contain ipython magics
+            _.raw_source for _ in parsed.get_code_cell_sources()
+        ]
 
         assert len(code_cell_indices) == len(code_cell_sources)
 
