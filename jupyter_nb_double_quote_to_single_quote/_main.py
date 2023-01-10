@@ -43,7 +43,7 @@ def fix_double_quotes(filename: str) -> int:
 
         if return_value == 1:
             with open(filename, 'w') as fp:
-                json.dump(notebook_content, fp, indent=1)
+                json.dump(notebook_content, fp, indent=1, ensure_ascii=False)
                 # Jupyter notebooks (.ipynb) always ends with a new line
                 # but json.dump does not.
                 fp.write('\n')
